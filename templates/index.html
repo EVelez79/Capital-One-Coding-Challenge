@@ -1,11 +1,17 @@
-<html>
-<head>
-  <link rel = "stylesheet" style="text/css" href="static/indexStyle.css">
+<!DOCTYPE html>
+<html lang="en_US">
+  <head>
+    <title> Visualization of Meteroite Landings </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+    </script>
+    <script src="static/indexJS.js"></script>
+    <script src="static/indexStyle.css"></script>
+  </head>
 
-  <title>Test</title>
-</head>
+  <body>
+    <div id = "map"></div>
 
-<body>
-  <p>Test</p>
-</body>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDseC_z0nhDsmde_sSuahtSjwwPDHNPxj8&callback=initMap">
+    </script>
 </html>
