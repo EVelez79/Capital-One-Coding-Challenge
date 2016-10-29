@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Meteorites Landings Around the World</title>
     <!-- Import static jQuery file. -->
     <script src="static/jquery-3.1.1.js"></script>
 
@@ -15,10 +16,46 @@
         margin: 0;
         padding: 0;
       }
+
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+      }
+
+      li {
+        border-right: 1px solid #bbb;
+        float: left;
+      }
+
+      li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+
+      li a:hover {
+        background-color: #111;
+      }
+
+      .active {
+        background-color: #4CAF50;
+      }
     </style>
   </head>
 
   <body>
+    <!-- Base for navigation bar -->
+    <ul>
+      <li><a class="active" href="index.html">Map</a></li>
+      <li><a href="updates.html">Updates</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+
     <!-- Create div which will hold the map -->
     <div id="map"></div>
 
@@ -58,7 +95,6 @@
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-
         infoWindow.setPosition(pos);
         infoWindow.setContent('Current location found.');
         map.setCenter(pos);
@@ -68,9 +104,8 @@
     } else {
       handleLocationError(false, infoWindow, map.getCenter());
     }
+
     });
-
-
     </script>
 
     <script async defer
