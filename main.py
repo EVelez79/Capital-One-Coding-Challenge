@@ -29,6 +29,12 @@ class MainHandler(webapp2.RequestHandler):
         template = jinja_environment.get_template('index.html')
         self.response.out.write(template.render())
 
+class UpdatesHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_environment.get_template('updates.html')
+        self.response.out.write(template.render())
+
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
+    ('/updates', UpdatesHandler)
 ], debug=True)
