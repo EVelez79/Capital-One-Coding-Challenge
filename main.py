@@ -13,7 +13,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 import webapp2
 import jinja2
 import os
@@ -36,5 +35,5 @@ class UpdatesHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ('/updates', UpdatesHandler)
+    ('/updates', UpdatesHandler),
 ], debug=True)
