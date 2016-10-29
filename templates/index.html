@@ -1,17 +1,52 @@
 <!DOCTYPE html>
-<html lang="en_US">
+<html>
   <head>
-    <title> Visualization of Meteroite Landings </title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
-    </script>
-    <script src="static/indexJS.js"></script>
-    <script src="static/indexStyle.css"></script>
+    <script src="static/jquery-3.1.1.js"></script>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
   </head>
-
   <body>
-    <div id = "map"></div>
+    <div id="map"></div>
+    <script>
+    $(window).on('load',function() {
+    // Construct the catalog query string
+    url = 'https://data.nasa.gov/resource/y77d-th95.json?&$$app_token=2iiB6wcB1gOhLurclgHnc5qjE';
 
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDseC_z0nhDsmde_sSuahtSjwwPDHNPxj8&callback=initMap">
+    // Intialize our map
+    var center = new google.maps.LatLng(41.7656874,-72.680087);
+    var mapOptions = {
+      zoom: 8,
+      center: center
+    }
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+    // Retrieve our data and plot it
+    $.getJSON(url, function(data, textstatus) {
+          console.log(data);
+          $.each(data, function(i, entry) {
+              var marker = new google.maps.Marker({
+                  position: new google.maps.LatLng(entry.reclat,
+                                                  entry.reclong),
+                  map: map,
+                  title: location.name
+              });
+          });
+    });
+});
     </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDseC_z0nhDsmde_sSuahtSjwwPDHNPxj8">
+    </script>
+  </body>
 </html>
