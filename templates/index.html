@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Import static jQuery file. -->
     <script src="static/jquery-3.1.1.js"></script>
+
+    <!-- CSS styling -->
     <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
       #map {
         height: 100%;
       }
-      /* Optional: Makes the sample page fill the window. */
+
       html, body {
         height: 100%;
         margin: 0;
@@ -16,24 +17,29 @@
       }
     </style>
   </head>
+
   <body>
+    <!-- Create div which will hold the map -->
     <div id="map"></div>
+
     <script>
+    //  Created a jQuery load function to load map when everything is ready,
+    //  instead of calling it with a function call.
     $(window).on('load',function() {
-    // Construct the catalog query string
+    // The URL that holds JSON data along with the app token
     url = 'https://data.nasa.gov/resource/y77d-th95.json?&$$app_token=2iiB6wcB1gOhLurclgHnc5qjE';
 
-    // Intialize our map
+    // Initialize map center along with zoom option
     var center = new google.maps.LatLng(37.723963, -122.481664);
     var mapOptions = {
       zoom: 8,
       center: center
     }
+    // Creat map object, which will be held by an ID in the HTML
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-    // Retrieve our data and plot it
+    // With jQuery, retrieve JSON data from URL
     $.getJSON(url, function(data, textstatus) {
-          console.log(data);
           $.each(data, function(i, entry) {
               var marker = new google.maps.Marker({
                   position: new google.maps.LatLng(entry.reclat,
@@ -42,9 +48,10 @@
                   title: location.name
               });
           });
-    });
-});
+      });
+  });
     </script>
+
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDseC_z0nhDsmde_sSuahtSjwwPDHNPxj8">
     </script>
