@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Meteorites Landings Around the World</title>
+    <!-- Import static jQuery file. -->
+    <script src="static/jquery-3.1.1.js"></script>
+
+    <!-- CSS styling -->
+    <link rel="stylesheet" type="text/css" href="static/mapCSS.css">
+  </head>
+
+  <body>
+    <!-- Base for navigation bar -->
+    <ul>
+      <li><a href="/">About</a></li>
+      <li><a href="/globe">Globe</a><li>
+      <li><a class="active" href="/map">Map</a></li>
+      <li><a href="/updates">Updates</a></li>
+    </ul>
+
+    <!-- Create div which will hold the map -->
+    <div id="map"></div>
+
+    <script>
+    //  Created a jQuery load function to load map when everything is ready,
+    //  instead of calling it with a function call.
+    $(window).on('load',function() {
+    // The URL that holds JSON data along with the app token
+    url = 'https://data.nasa.gov/resource/y77d-th95.json?&$$app_token=2iiB6wcB1gOhLurclgHnc5qjE';
+
+    // Initialize map center along with zoom option
+    var center = new google.maps.LatLng(37.723963, -122.481664);
+    var mapOptions = {
+      zoom: 8,
+      center: center
+    }
+    // Creat map object, which will be held by an ID in the HTML
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+    // With jQuery, retrieve JSON data from URL
+    $.getJSON(url, function(data, textstatus) {
+          $.each(data, function(i, entry) {
+              var marker = new google.maps.Marker({
+                  position: new google.maps.LatLng(entry.reclat,
+                                                  entry.reclong),
+                  map: map,
+                  title: location.name
+              });
+          });
+      });
+
+    var infoWindow = new google.maps.InfoWindow({map: map});
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        infoWindow.setPosition(pos);
+        infoWindow.setContent('Current location found.');
+        map.setCenter(pos);
+      }, function() {
+        handleLocationError(true, infoWindow, map.getCenter());
+      });
+    } else {
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+
+    });
+    </script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDseC_z0nhDsmde_sSuahtSjwwPDHNPxj8">
+    </script>
+  </body>
+</html>

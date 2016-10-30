@@ -33,7 +33,19 @@ class UpdatesHandler(webapp2.RequestHandler):
         template = jinja_environment.get_template('updates.html')
         self.response.out.write(template.render())
 
+class GlobeHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_environment.get_template('globe.html')
+        self.response.out.write(template.render())
+
+class MapHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_environment.get_template('map.html')
+        self.response.out.write(template.render())
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
+    ('/map', MapHandler )
     ('/updates', UpdatesHandler),
+    ('/globe', GlobeHandler ),
 ], debug=True)
