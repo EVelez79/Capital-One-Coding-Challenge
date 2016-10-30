@@ -3,7 +3,12 @@
   <head>
     <title> Globe </title>
 
-    <link rel="stylesheet" type="text/css" href="static/globeCSS.css">
+    <link rel="stylesheet" type="text/css" href="static/GlobeCSS.css">
+    <script src="static/Globe.js"></script>
+    <script src="static/jquery-3.1.1.js"></script>
+    <script src="https://threejs.org/build/three.min.js"></script>
+    <script src="static/detector.js"></script>
+    <script src="static/Tween.js"></script>
   </head>
 
   <body>
@@ -13,5 +18,37 @@
       <li><a href="/map">Map</a></li>
       <li><a href="/updates">Updates</a></li>
     </ul>
+
+    <div id="container"></div>
+
+    <script>
+      if(!Detector.webgl) {
+        Detector.addGetWebGLMessage();
+      } else {
+        var container = document.getElementById('container');
+        var globe = new DAT.Globe(container);
+
+        console.log(globe)
+      }
+
+      var xhr;
+      TWEEN.start();
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'static/meteorites.json', true);
+      xhr.onreadystatechange = function(e) {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            var data = JSON.parse(xhr.responseText);
+            window.data = data;
+            globe.addData(data, {format: 'legend'});
+            globe.createPoints();
+            globe.animate();
+            document.body.style.backgroundImage = 'none'; // remove loading
+          }
+        }
+      };
+      xhr.send(null);
+    </script>
   </body>
 </html>
