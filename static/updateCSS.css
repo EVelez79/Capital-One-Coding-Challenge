@@ -1,10 +1,7 @@
 ul {
-  position: fixed;
-  top: 0;
-  width: 100%;
   list-style-type: none;
-  margin: 0;
-  padding: 0;
+  margin: 1px;
+  padding: 1px;
   overflow: hidden;
   background-color: #333;
 }
@@ -31,6 +28,7 @@ li a:hover {
 }
 
 #nasa {
+  top: 20px;
 }
 
 body {
