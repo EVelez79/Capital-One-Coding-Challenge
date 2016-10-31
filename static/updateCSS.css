@@ -1,4 +1,7 @@
 ul {
+  position: fixed;
+  top: 0;
+  width: 100%;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -25,4 +28,12 @@ li a:hover {
 
 .active {
   background-color: #4CAF50;
+}
+
+#nasa {
+}
+
+body {
+  height: 100%;
+  background-image: url("space.jpg");
 }

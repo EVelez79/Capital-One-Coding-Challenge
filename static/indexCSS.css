@@ -1,5 +1,7 @@
 ul {
   list-style-type: none;
+  width: 100%;
+  top: 0;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -25,4 +27,38 @@ li a:hover {
 
 .active {
   background-color: #4CAF50;
+}
+
+body {
+  height: 100%;
+  background-image: url("space.jpg");
+}
+
+#center {
+  font-family: 'Contrail One', cursive;
+  text-align: center;
+  color: white;
+  font-size: 200%;
+}
+
+p {
+  font-family: 'Contrail One', cursive;
+  text-align: center;
+  color: white;
+  font-size: 200%;
+  text-transform: uppercase;
+  font-weight: bold;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  letter-spacing: 0.06em;
+}
+
+#signature {
+  position: absolute;
+  bottom: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #42bcf4;
 }
