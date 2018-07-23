@@ -44,6 +44,7 @@ class GlobeHandler(webapp2.RequestHandler):
 
     def get(self):
         template = jinja_environment.get_template('globe.html')
+        self.response.out.write(template.render())
 
 app = webapp2.WSGIApplication(
     [('/', MainHandler),

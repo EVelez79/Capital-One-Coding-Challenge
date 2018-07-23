@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Meteorite Globe</title>
+
+    <link rel="stylesheet" href="../assets/globe.css">
+
+    <!-- WebGL Globe JS -->
+    <script src="../assets/globe/globe.js"></script>
+    <!-- jQuery mini -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    
+    <script type="text/javascript" src="../assets/globe/third-party/Detector.js"></script>
+    <script type="text/javascript" src="../assets/globe/third-party/three.min.js"></script>
+    <script type="text/javascript" src="../assets/globe/third-party/Tween.js"></script>
+  </head>
+
+  <body>
+    <section>
+      <div id="globe-container"></div>
+    </section>
+
+    <script>
+      var globeContainer = document.getElementById("globe-container");
+
+      var globe = new DAT.Globe(globeContainer);
+      globe.createPoints();
+      globe.animate();
+    </script>
+  </body>
+</html>
