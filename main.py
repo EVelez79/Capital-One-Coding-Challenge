@@ -13,11 +13,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import webapp2, jinja2, os, json
+import webapp2, jinja2, os, json, urllib
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
-jinja_environment = jinja2.Environment(
-    loader = jinja2.FileSystemLoader(template_dir))
+jinja_environment = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir))
+
 env = jinja2.Environment(loader=jinja2.FileSystemLoader('templates'))
 
 class MainHandler(webapp2.RequestHandler):
@@ -25,6 +25,27 @@ class MainHandler(webapp2.RequestHandler):
         template = jinja_environment.get_template('index.html')
         self.response.out.write(template.render())
 
+class GlobeHandler(webapp2.RequestHandler):
+    JSON_URL = "https://data.nasa.gov/resource/y77d-th95.json"
+    globe_data = [["Meteorites", []]]  # Expected data format for Globe
+
+    response = urllib.urlopen(JSON_URL)
+    json_data = json.loads(response.read())
+
+    for entry in json_data:
+        if "reclat" in entry and "reclong" in entry and "mass" in entry:
+            lat = entry["reclat"]
+            long = entry["reclong"]
+            mag = entry["mass"]
+        else:
+            continue
+
+        globe_data[0][1].extend((lat, long, mag))
+
+    def get(self):
+        template = jinja_environment.get_template('globe.html')
+
 app = webapp2.WSGIApplication(
-    [('/', MainHandler)],
+    [('/', MainHandler),
+    ('/globe', GlobeHandler)],
     debug=True)
