@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+
     <title>Meteorite Globe</title>
 
     <link rel="stylesheet" href="../assets/globe.css">
@@ -9,7 +10,7 @@
     <script src="../assets/globe/globe.js"></script>
     <!-- jQuery mini -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    
+
     <script type="text/javascript" src="../assets/globe/third-party/Detector.js"></script>
     <script type="text/javascript" src="../assets/globe/third-party/three.min.js"></script>
     <script type="text/javascript" src="../assets/globe/third-party/Tween.js"></script>
@@ -17,15 +18,24 @@
 
   <body>
     <section>
-      <div id="globe-container"></div>
+      <div class="container-fluid">
+        <div class="row">
+          <div id="globe-container"></div>
+        </div>
+      </div>
     </section>
 
     <script>
       var globeContainer = document.getElementById("globe-container");
+      var data = {{ globe_data|safe }};
 
-      var globe = new DAT.Globe(globeContainer);
-      globe.createPoints();
-      globe.animate();
+      $(document).ready(function() {
+        var globe = new DAT.Globe(globeContainer);
+        globe.addData(data[1], {format: 'magnitude'});
+        globe.createPoints();
+        globe.animate();
+      });
+
     </script>
   </body>
 </html>
