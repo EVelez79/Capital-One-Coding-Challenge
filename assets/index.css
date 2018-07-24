@@ -6,6 +6,8 @@
 .overlayed-content {
   position: absolute;
   z-index: 1;
+  margin-top: 200px;
+
 }
 
 #video {
