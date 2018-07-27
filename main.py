@@ -18,8 +18,6 @@ import webapp2, jinja2, os, json, urllib
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_environment = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir))
 
-env = jinja2.Environment(loader=jinja2.FileSystemLoader('templates'))
-
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja_environment.get_template('index.html')
@@ -32,7 +30,7 @@ class GlobeHandler(webapp2.RequestHandler):
 
         response = urllib.urlopen(JSON_URL)
         json_data = json.loads(response.read())
-        
+
         for entry in json_data:
             if "reclat" in entry and "reclong" in entry and "mass" in entry:
                 lat = entry["reclat"]
