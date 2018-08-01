@@ -30,18 +30,21 @@ class GlobeHandler(webapp2.RequestHandler):
     response = urllib.urlopen(JSON_URL)
     json_data = json.loads(response.read())
 
+    def default_filter(self):
+        for entry in self.json_data:
+            if "reclat" in entry and "reclong" in entry and "mass" in entry:
+                lat = entry["reclat"]
+                long = entry["reclong"]
+                mag = float(entry["mass"])*0.00001
+            else:
+                continue
+
+            self.globe_data[1].extend((lat, long, mag))
+
     def post(self):
         filter = self.request.get("filter")
         if filter == "default":
-            for entry in self.json_data:
-                if "reclat" in entry and "reclong" in entry and "mass" in entry:
-                    lat = entry["reclat"]
-                    long = entry["reclong"]
-                    mag = float(entry["mass"])*0.00001
-                else:
-                    continue
-
-                self.globe_data[1].extend((lat, long, mag))
+            self.default_filter()
 
         template = jinja_environment.get_template('globe.html')
         self.response.out.write(template.render(globe_data=json.dumps(self.globe_data)))
