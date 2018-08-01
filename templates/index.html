@@ -7,9 +7,10 @@
 
     <link rel="stylesheet" href="../assets/index.css" type="text/css">
     <!-- Import jQuery -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <!-- Bootstrap CSS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Import TypeIt - Thank you to Matt Boldt for such a neat library -->
+    <script src="https://cdn.jsdelivr.net/jquery.typeit/4.4.0/typeit.min.js"></script>
   </head>
 
   <body>
@@ -19,12 +20,20 @@
         <section>
           <div class="container-fluid section-frame">
             <div class="row justify-content-center">
-                <video class="section-frame" src="../assets/stars.mov" autoplay muted loop></video>
+                <video class="section-frame" autoplay muted loop>
+                  <source src="../assets/stars.mp4" type="video/mp4">
+                  The video did not work
+                </video>
               <div class="overlayed-content">
-                <h1 class="intro-text">Hello</h1>
+                <h1 id="intro-text"></h1>
                 <nav>
-                  <a href="globe">Globe</a>
-                  <a href="map">Map</a>
+                  <form class="submit" action="/globe?filter=default" method="post" id="globe">
+                    <button type="submit" form="globe" name="default" value="default">Globe</button>
+                  </form>
+
+                  <form class="submit" action="/map" method="post" id="map">
+                    <button type="submit" form="map" value="Submit">Map</button>
+                  </form>
                 </nav>
               </div>
             </div>
@@ -33,6 +42,25 @@
 
       </div>
     </div>
+
+    <script>
+    $('#intro-text').typeIt({
+      speed: 70,
+      autoStart: false
+    })
+    .tiPause(1000)
+    .tiType("Welcome to Meteorites")
+
+    function submitGlobeForm() {
+
+    }
+
+    function submitMapForm() {
+      document.getElementById(page).submit();
+    }
+
+
+    </script>
 
     <!-- Bootstrap JS dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
