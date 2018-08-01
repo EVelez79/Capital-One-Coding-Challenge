@@ -24,26 +24,27 @@ class MainHandler(webapp2.RequestHandler):
         self.response.out.write(template.render())
 
 class GlobeHandler(webapp2.RequestHandler):
-    def get(self):
-        JSON_URL = "https://data.nasa.gov/resource/y77d-th95.json"
-        globe_data = ["Meteorites", []] # Expected data format for Globe
+    JSON_URL = "https://data.nasa.gov/resource/y77d-th95.json"
+    globe_data = ["Meteorites", []] # Expected data format for Globe
 
-        response = urllib.urlopen(JSON_URL)
-        json_data = json.loads(response.read())
+    response = urllib.urlopen(JSON_URL)
+    json_data = json.loads(response.read())
 
-        for entry in json_data:
-            if "reclat" in entry and "reclong" in entry and "mass" in entry:
-                lat = entry["reclat"]
-                long = entry["reclong"]
-                mag = float(entry["mass"])*0.00001
-            else:
-                continue
+    def post(self):
+        filter = self.request.get("filter")
+        if filter == "default":
+            for entry in self.json_data:
+                if "reclat" in entry and "reclong" in entry and "mass" in entry:
+                    lat = entry["reclat"]
+                    long = entry["reclong"]
+                    mag = float(entry["mass"])*0.00001
+                else:
+                    continue
 
-            globe_data[1].extend((lat, long, mag))
-
+                self.globe_data[1].extend((lat, long, mag))
 
         template = jinja_environment.get_template('globe.html')
-        self.response.out.write(template.render(globe_data=json.dumps(globe_data)))
+        self.response.out.write(template.render(globe_data=json.dumps(self.globe_data)))
 
 app = webapp2.WSGIApplication(
     [('/', MainHandler),
