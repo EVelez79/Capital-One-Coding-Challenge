@@ -27,7 +27,7 @@ class GlobeHandler(webapp2.RequestHandler):
     def __init__(self, request, response):
         #Allows overriding of __init__()
         self.initialize(request, response)
-        
+
         JSON_URL = "https://data.nasa.gov/resource/y77d-th95.json"
         self.globe_data = ["Meteorites", []] # Expected data format for Globe
 
@@ -53,7 +53,17 @@ class GlobeHandler(webapp2.RequestHandler):
         template = jinja_environment.get_template('globe.html')
         self.response.out.write(template.render(globe_data=json.dumps(self.globe_data)))
 
-class MapHandler(webapp2.RequestHandler):
+class MapHandler(webapp2.RequestHandler):\
+    def __init__(self, request, response):
+        #Allows overriding of __init__()
+        self.initialize(request, response)
+
+        JSON_URL = "https://data.nasa.gov/resource/y77d-th95.json"
+        self.globe_data = ["Meteorites", []] # Expected data format for Globe
+
+        response = urllib.urlopen(JSON_URL)
+        self.json_data = json.loads(response.read())
+        
     def get(self):
         template = jinja_environment.get_template('map.html')
         self.response.out.write(template.render())
