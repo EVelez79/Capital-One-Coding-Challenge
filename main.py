@@ -78,7 +78,7 @@ class MapHandler(webapp2.RequestHandler):
         self.fill_data()
 
         template = jinja_environment.get_template('map.html')
-        self.response.out.write(template.render(data = self.map_data))
+        self.response.out.write(template.render(mapData = json.dumps(self.map_data)))
 
 app = webapp2.WSGIApplication(
     [('/', MainHandler),
