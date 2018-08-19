@@ -53,20 +53,32 @@ class GlobeHandler(webapp2.RequestHandler):
         template = jinja_environment.get_template('globe.html')
         self.response.out.write(template.render(globe_data=json.dumps(self.globe_data)))
 
-class MapHandler(webapp2.RequestHandler):\
+class MapHandler(webapp2.RequestHandler):
     def __init__(self, request, response):
         #Allows overriding of __init__()
         self.initialize(request, response)
 
         JSON_URL = "https://data.nasa.gov/resource/y77d-th95.json"
-        self.globe_data = ["Meteorites", []] # Expected data format for Globe
+        self.map_data = [] # Expected data format for Globe
 
         response = urllib.urlopen(JSON_URL)
         self.json_data = json.loads(response.read())
-        
+
+    def fill_data(self):
+        for entry in self.json_data:
+            if "reclat" in entry and "reclong" in entry and "mass" in entry:
+                lat = entry["reclat"]
+                long = entry["reclong"]
+            else:
+                continue
+
+            self.map_data.extend((lat, long))
+
     def get(self):
+        self.fill_data()
+
         template = jinja_environment.get_template('map.html')
-        self.response.out.write(template.render())
+        self.response.out.write(template.render(data = self.map_data))
 
 app = webapp2.WSGIApplication(
     [('/', MainHandler),
