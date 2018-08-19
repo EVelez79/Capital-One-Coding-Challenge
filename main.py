@@ -24,11 +24,15 @@ class MainHandler(webapp2.RequestHandler):
         self.response.out.write(template.render())
 
 class GlobeHandler(webapp2.RequestHandler):
-    JSON_URL = "https://data.nasa.gov/resource/y77d-th95.json"
-    globe_data = ["Meteorites", []] # Expected data format for Globe
+    def __init__(self, request, response):
+        #Allows overriding of __init__()
+        self.initialize(request, response)
+        
+        JSON_URL = "https://data.nasa.gov/resource/y77d-th95.json"
+        self.globe_data = ["Meteorites", []] # Expected data format for Globe
 
-    response = urllib.urlopen(JSON_URL)
-    json_data = json.loads(response.read())
+        response = urllib.urlopen(JSON_URL)
+        self.json_data = json.loads(response.read())
 
     def default_filter(self):
         for entry in self.json_data:
