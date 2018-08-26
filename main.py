@@ -32,10 +32,10 @@ class GlobeHandler(webapp2.RequestHandler):
         self.globe_data = ["Meteorites", []] # Expected data format for Globe
 
         response = urllib.urlopen(JSON_URL)
-        self.json_data = json.loads(response.read())
+        self.JSON_DATA = json.loads(response.read())
 
     def default_filter(self):
-        for entry in self.json_data:
+        for entry in self.JSON_DATA:
             if "reclat" in entry and "reclong" in entry and "mass" in entry:
                 lat = entry["reclat"]
                 long = entry["reclong"]
@@ -62,10 +62,10 @@ class MapHandler(webapp2.RequestHandler):
         self.map_data = [] # Expected data format for Globe
 
         response = urllib.urlopen(JSON_URL)
-        self.json_data = json.loads(response.read())
+        self.JSON_DATA = json.loads(response.read())
 
     def fill_data(self):
-        for entry in self.json_data:
+        for entry in self.JSON_DATA:
             if "reclat" in entry and "reclong" in entry and "mass" in entry:
                 lat = entry["reclat"]
                 long = entry["reclong"]
