@@ -2,25 +2,68 @@
 <html>
   <head>
     <title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="https://fonts.googleapis.com/css?family=Contrail+One" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="static/indexCSS.css">
+    <link rel="stylesheet" href="../assets/index.css" type="text/css">
+    <!-- Import jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Import TypeIt - Thank you to Matt Boldt for such a neat library -->
+    <script src="https://cdn.jsdelivr.net/jquery.typeit/4.4.0/typeit.min.js"></script>
   </head>
 
   <body>
-    <ul>
-      <li><a class="active" href="#">About</a></li>
-      <li><a href="#">Globe</a><li>
-      <li><a href="#">Map</a></li>
-      <li><a href="#">Updates</a></li>
-    </ul>
+    <div id="site-wrapper">
+      <div id="site-wrapper-inner">
 
-    <div id="image">
+        <section>
+          <div class="container-fluid section-frame">
+            <div class="row justify-content-center">
+                <video class="section-frame" autoplay muted loop>
+                  <source src="../assets/stars.mp4" type="video/mp4">
+                  The video did not work
+                </video>
+              <div class="overlayed-content">
+                <h1 id="intro-text"></h1>
+                <nav>
+                  <form class="submit" action="/globe?filter=default" method="post" id="globe">
+                    <button type="submit" form="globe" name="default" value="default">Globe</button>
+                  </form>
+
+                  <form class="submit" action="/map" method="get" id="map">
+                    <button type="submit" form="map" value="Submit">Map</button>
+                  </form>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
     </div>
-    <h1 id="center">Meteors</h1>
-    <p class="centertext">Currently under construction (:</p>
+
+    <script>
+    $('#intro-text').typeIt({
+      speed: 70,
+      autoStart: false
+    })
+    .tiPause(1000)
+    .tiType("Welcome to Meteorites")
+
+    function submitGlobeForm() {
+
+    }
+
+    function submitMapForm() {
+      document.getElementById(page).submit();
+    }
 
 
-    <p id="signature">Created by <a href="https://github.com/EVelez79"> Erick Velez </a></p>
+    </script>
+
+    <!-- Bootstrap JS dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 </html>

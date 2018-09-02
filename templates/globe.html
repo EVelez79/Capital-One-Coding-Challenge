@@ -1,54 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> Globe </title>
 
-    <link rel="stylesheet" type="text/css" href="static/globeCSS.css">
-    <script src="static/Globe.js"></script>
-    <script src="static/jquery-3.1.1.js"></script>
-    <script src="https://threejs.org/build/three.min.js"></script>
-    <script src="static/detector.js"></script>
-    <script src="static/Tween.js"></script>
+    <title>Meteorite Globe</title>
+
+    <link rel="stylesheet" href="../assets/globe.css">
+
+    <!-- WebGL Globe JS -->
+    <script src="../assets/globe/globe.js"></script>
+    <!-- jQuery mini -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="../assets/globe/third-party/Detector.js"></script>
+    <script type="text/javascript" src="../assets/globe/third-party/three.min.js"></script>
+    <script type="text/javascript" src="../assets/globe/third-party/Tween.js"></script>
   </head>
 
   <body>
-    <ul>
-      <li><a href="/">About</a></li>
-      <li><a class="active" href="/globe">Globe</a><li>
-      <li><a href="/map">Map</a></li>
-      <li><a href="/updates">Updates</a></li>
-    </ul>
 
-    <div id="container"></div>
+          <div id="globe-container"></div>
+
 
     <script>
-      if(!Detector.webgl) {
-        Detector.addGetWebGLMessage();
-      } else {
-        var container = document.getElementById('container');
-        var globe = new DAT.Globe(container);
+      var globeContainer = document.getElementById("globe-container");
+      var data = {{ globe_data|safe }};
 
-        console.log(globe)
-      }
+      $(document).ready(function() {
+        var globe = new DAT.Globe(globeContainer);
+        globe.addData(data[1], {format: 'magnitude'});
+        globe.createPoints();
+        globe.animate();
+      });
 
-      var xhr;
-      TWEEN.start();
-
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', 'static/meteorites.json', true);
-      xhr.onreadystatechange = function(e) {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            var data = JSON.parse(xhr.responseText);
-            window.data = data;
-            globe.addData(data, {format: 'legend'});
-            globe.createPoints();
-            globe.animate();
-            document.body.style.backgroundImage = 'none'; // remove loading
-          }
-        }
-      };
-      xhr.send(null);
     </script>
   </body>
 </html>
