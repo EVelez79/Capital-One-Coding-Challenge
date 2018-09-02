@@ -61,6 +61,13 @@ class MapHandler(webapp2.RequestHandler):
         JSON_URL = "https://data.nasa.gov/resource/y77d-th95.json"
         self.map_data = [] # Expected data format for Globe
 
+        configFile = open("config.json", "r")
+        config = json.load(configFile)
+        self.GMAPS_KEY = (json.dumps(config["Info"]["GmapsKey"])).strip('""')
+        self.GMAPS_URL = "https://maps.googleapis.com/maps/api/js?key=" + self.GMAPS_KEY
+        print(self.GMAPS_URL)
+
+
         response = urllib.urlopen(JSON_URL)
         self.JSON_DATA = json.loads(response.read())
 
@@ -78,7 +85,7 @@ class MapHandler(webapp2.RequestHandler):
         self.fill_data()
 
         template = jinja_environment.get_template('map.html')
-        self.response.out.write(template.render(mapData = json.dumps(self.map_data)))
+        self.response.out.write(template.render(mapData = json.dumps(self.map_data), gmaps_src = self.GMAPS_URL))
 
 app = webapp2.WSGIApplication(
     [('/', MainHandler),
