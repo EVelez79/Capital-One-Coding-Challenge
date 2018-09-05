@@ -9,19 +9,17 @@ body {
   top: 40%;
   left: 50%;
   position: fixed;
-  z-index: 1;
+  color: #fcfcfc;
+  z-index: 3;
   margin: auto;
   margin-left: auto;
   margin-right: auto;
+  font-size: 30px;
 }
 
 #video {
   z-index: 0;
   position: relative;
-}
-
-.intro-text {
-  color: #eff0f2;
 }
 
 #site-wrapper {
